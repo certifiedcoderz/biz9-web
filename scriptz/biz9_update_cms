@@ -1,0 +1,18 @@
+echo "#BiZ9-CMS Update"
+V_DATE=$(date +%F@%H:%M)
+
+echo "Enter APP ID"
+read app_id
+
+echo "Enter Web Folder ID"
+read folder_id
+
+biz_cms_dir="$HOME/www/opz/productz/biz9/biz9-cms/src"
+biz_active_dir="$HOME/www/opz/active/{app_id}"
+
+# copy fileZ
+cp -rf $biz_cms_new_dir/public $biz_cms_new_dir/routes $biz_cms_new_dir/views $biz_active_dir
+
+
+echo "BiZ9-CMS Update Success: @ ${V_DATE}"
+

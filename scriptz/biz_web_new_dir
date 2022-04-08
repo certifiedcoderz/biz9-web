@@ -1,0 +1,8 @@
+APP_VERSION='0.3.2'
+APP_ID='3'
+APP_TITLE='9_OPZ #Certified CoderZ'
+APP_TITLE_ID='ccode'
+REPO_TITLE='ccode'
+EC2_IP_ADDR=3.88.232.245
+EC2_DEPLOY_DIR=/home/admin/www
+MONGO_PORT=27019
