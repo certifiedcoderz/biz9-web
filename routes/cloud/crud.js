@@ -83,15 +83,6 @@ router.post("/update_item/:data_type/:tbl_id", function(req, res) {
                 call();
             });
         },
-        function(call){
-            if(helper.item.has_big_note=='true' && G_S3_SAVE){
-                biz9.update_bucket_data(helper.item.tbl_id,helper.item.note,function(result) {
-                    call();
-                });
-            }else{
-                call();
-            }
-        },
     ],
         function(err, results){
             res.send({helper:helper});
@@ -113,38 +104,6 @@ router.get("/get_item_by_tbl_id/:data_type/:tbl_id", function(req, res) {
                 helper.item =result;
                 call();
             });
-        },
-    ],
-        function(err, results){
-            res.send({helper:helper});
-            res.end();
-        });
-});
-router.get("/get_item_note_by_tbl_id/:data_type/:tbl_id", function(req, res) {
-    var helper = biz9.get_helper(req);
-    helper.item = biz9.get_new_item(helper.data_type,helper.tbl_id);
-    async.series([
-        function(call){
-            biz9.get_connect_db(helper.app_title_id,function(_db){
-                db=_db;
-                call();
-            });
-        },
-        function(call){
-            biz9.get_item(db,helper.data_type,helper.tbl_id, function(result) {
-                helper.item =result;
-                call();
-            });
-        },
-        function(call){
-            if(helper.item.has_big_note=='true' && G_S3_SAVE){
-            biz9.get_bucket_data(helper.tbl_id,function(result) {
-                helper.item.note=result;
-                call();
-            });
-            }else{
-                call();
-            }
         },
     ],
         function(err, results){

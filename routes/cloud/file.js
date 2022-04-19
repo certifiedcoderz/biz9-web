@@ -21,7 +21,7 @@ router.post('/update_mp3_web',function(req,res){
         //update_s3_file
         function(call){
             if(G_S3_SAVE){
-                biz9.update_bucket_file(G_S3_BUCKET,G_FILE_SAVE_PATH,helper.item.filename,helper.item.filename,function(result) {
+                biz9.update_bucket_file(G_FILE_SAVE_PATH,helper.item.filename,helper.item.filename,function(result) {
                     call();
                 });
             }else{
@@ -53,12 +53,6 @@ router.post('/update_photo_web',function(req,res){
             _id = biz9.get_id();
             biz9.get_file_ext(G_FILE_SAVE_PATH,helper.item.org_filename,function(result) {
                 helper.item.photofilename=_id+result;
-                call();
-            });
-        },
-        //save with new filename
-        function(call){
-            biz9.set_photo_file(G_FILE_SAVE_PATH,helper.item.org_filename,helper.item.photofilename,function(result) {
                 call();
             });
         },
@@ -94,7 +88,7 @@ router.post('/update_photo_web',function(req,res){
         //update_s3_org
         function(call){
             if(G_S3_SAVE){
-                biz9.update_bucket_file(G_S3_BUCKET,G_FILE_SAVE_PATH,helper.item.org_filename,helper.item.photofilename,function(result) {
+                biz9.update_bucket_file(G_FILE_SAVE_PATH,helper.item.org_filename,helper.item.photofilename,function(result) {
                     call();
                 });
             }else{
@@ -104,7 +98,7 @@ router.post('/update_photo_web',function(req,res){
         //update_s3_thumb
         function(call){
             if(G_S3_SAVE){
-                biz9.update_bucket_file(G_S3_BUCKET,G_FILE_SAVE_PATH,G_PHOTO_SIZE_THUMB.title_url+helper.item.photofilename,G_PHOTO_SIZE_THUMB.title_url+helper.item.photofilename,function(result) {
+                biz9.update_bucket_file(G_FILE_SAVE_PATH,G_PHOTO_SIZE_THUMB.title_url+helper.item.photofilename,G_PHOTO_SIZE_THUMB.title_url+helper.item.photofilename,function(result) {
                     call();
                 });
             }else{
@@ -114,7 +108,7 @@ router.post('/update_photo_web',function(req,res){
         //update_s3_mid
         function(call){
             if(G_S3_SAVE){
-                biz9.update_bucket_file(G_S3_BUCKET,G_FILE_SAVE_PATH,G_PHOTO_SIZE_MID.title_url+helper.item.photofilename,G_PHOTO_SIZE_MID.title_url+helper.item.photofilename,function(result) {
+                biz9.update_bucket_file(G_FILE_SAVE_PATH,G_PHOTO_SIZE_MID.title_url+helper.item.photofilename,G_PHOTO_SIZE_MID.title_url+helper.item.photofilename,function(result) {
                     call();
                 });
             }else{
@@ -124,7 +118,7 @@ router.post('/update_photo_web',function(req,res){
         //update_s3_large
         function(call){
             if(G_S3_SAVE){
-                biz9.update_bucket_file(G_S3_BUCKET,G_FILE_SAVE_PATH,G_PHOTO_SIZE_LARGE.title_url+helper.item.photofilename,G_PHOTO_SIZE_LARGE.title_url+helper.item.photofilename,function(result) {
+                biz9.update_bucket_file(G_FILE_SAVE_PATH,G_PHOTO_SIZE_LARGE.title_url+helper.item.photofilename,G_PHOTO_SIZE_LARGE.title_url+helper.item.photofilename,function(result) {
                     call();
                 });
             }else{
