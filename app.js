@@ -12,7 +12,7 @@ G_ENV=process.env.NODE_ENV;
 G_APP_ID='19';
 G_APP_TITLE_ID='bossappz-web';
 G_APP_TITLE='Blank Web';
-G_APP_VERSION='0.1.3'
+G_APP_VERSION='0.1.4'
 /* --- APP CONFIG END  --- */
 /* --- ENV CONFIG START --- */
 if(G_ENV == "test"){
