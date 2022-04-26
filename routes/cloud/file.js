@@ -56,6 +56,12 @@ router.post('/update_photo_web',function(req,res){
                 call();
             });
         },
+        //save with new filename
+        function(call){
+            biz9.set_photo_file(G_FILE_SAVE_PATH,helper.item.org_filename,helper.item.photofilename,function(result) {
+                call();
+            });
+        },
         //save with new filename size thumb_size
         function(call){
             biz9.set_resize_photo_file(G_PHOTO_SIZE_THUMB.size,G_FILE_SAVE_PATH,helper.item.org_filename,G_PHOTO_SIZE_THUMB.title_url+helper.item.photofilename,function(result) {

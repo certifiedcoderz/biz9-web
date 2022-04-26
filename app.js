@@ -10,9 +10,9 @@ G_ENV=process.env.NODE_ENV;
 /*--- APP DEFAULT END ---*/
 /* --- APP CONFIG START  --- */
 G_APP_ID='19';
-G_APP_TITLE_ID='bossappzweb';
+G_APP_TITLE_ID='bossappz-web';
 G_APP_TITLE='Blank Web';
-G_APP_VERSION='0.1.2'
+G_APP_VERSION='0.1.3'
 /* --- APP CONFIG END  --- */
 /* --- ENV CONFIG START --- */
 if(G_ENV == "test"){
@@ -21,7 +21,7 @@ if(G_ENV == "test"){
 	/* --- ENV CONFIG END --- */
 	/* --- ENV AWS START --- */
 	G_S3_SAVE=false;
-	G_S3_BUCKET='bossappzweb';
+	G_S3_BUCKET='bossappz-web';
 	G_AWS_KEY='-';
 	G_AWS_SECRET='-';
 	/* --- ENV AWS END --- */
