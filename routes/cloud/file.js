@@ -164,4 +164,5 @@ router.post("/remove_photo/:data_type/:tbl_id", function(req, res) {
             res.end();
         });
 });
+
 module.exports = router;

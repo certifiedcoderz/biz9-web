@@ -12,7 +12,7 @@ G_ENV=process.env.NODE_ENV;
 G_APP_ID='19';
 G_APP_TITLE_ID='bossappz-web';
 G_APP_TITLE='Blank Web';
-G_APP_VERSION='0.1.4'
+G_APP_VERSION='0.1.5'
 /* --- APP CONFIG END  --- */
 /* --- ENV CONFIG START --- */
 if(G_ENV == "test"){
@@ -30,9 +30,10 @@ if(G_ENV == "test"){
 	G_EMAIL_FROM='alert@certifiedcoderz.com';
 	/* --- ENV EMAILZ START --- */
 	/* --- ENV FILE START --- */
-	G_FILE_SAVE_PATH='/public/uploads/';
-	G_FILE_URL='/uploads/'; //box_url
+	//G_FILE_SAVE_PATH='/public/uploads/';
+	//G_FILE_URL='/uploads/'; //box_url
 	//G_FILE_URL="https://"+G_S3_BUCKET+".s3.amazonaws.com/" //aws_s3_url
+	G_FILE_URL="https://19.web.com/" //service_mobile
 	/* --- ENV FILE END --- */
 }
 //else if(G_ENV == "prod"){
