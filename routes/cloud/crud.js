@@ -69,7 +69,6 @@ router.post("/delete_item_by_tbl_id/:data_type/:tbl_id", function(req, res) {
 router.post("/update_item/:data_type/:tbl_id", function(req, res) {
     var helper = biz9.get_helper(req);
     helper.item = biz9.set_item_data(helper.data_type,helper.tbl_id,req.body);
-
     async.series([
         function(call){
             biz9.get_connect_db(helper.app_title_id,function(_db){

@@ -3,7 +3,7 @@ express = require('express');
 path = require('path');
 async=require('async');
 session=require('express-session');
-var busboy = require('connect-busboy');
+busboy = require('busboy');
 /* --- APP REQUIRE END --- */
 /* --- APP DEFAULT START --- */
 G_ENV=process.env.NODE_ENV;
@@ -12,7 +12,7 @@ G_ENV=process.env.NODE_ENV;
 G_APP_ID='19';
 G_APP_TITLE_ID='bossappz-web';
 G_APP_TITLE='Blank Web';
-G_APP_VERSION='0.1.5'
+G_APP_VERSION='0.1.6'
 /* --- APP CONFIG END  --- */
 /* --- ENV CONFIG START --- */
 if(G_ENV == "test"){
@@ -99,10 +99,6 @@ app.use(express.urlencoded({limit: '50mb',extended:false}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(busboy({
-	immediate: true,
-	highWaterMark: 2 * 1024 * 1024,
-}));
 /* --- APP EXPRESS END --- */
 /* --- APP ROUTES START --- */
 app.use('/', index);

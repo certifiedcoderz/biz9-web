@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var async=require('async');
-
 router.get('/ping', function(req, res, next) {
     var helper = biz9.get_helper(req);
     helper.test = 'crud test ping';
@@ -14,6 +13,7 @@ router.post('/bucket_update', function(req, res, next) {
         function(call){
             biz9.update_bucket(helper.title,function(result) {
                 helper.result=result;
+                biz9.o('UPDATE_BUCKET_STATUS',result);
                 call();
             });
         },
@@ -32,36 +32,6 @@ router.get('/mongo_connect', function(req, res, next) {
                 call();
             });
         }
-    ],
-        function(err, results){
-            res.send({helper:helper});
-            res.end();
-        });
-});
-router.post('/update_user', function(req, res, next) {
-    var helper = biz9.get_helper(req);
-    async.series([
-        function(call){
-            biz9.get_connect_db(helper.app_title_id,function(_db){
-                db=_db;
-                call();
-            });
-        },
-        function(call){
-            helper.user = biz9.get_test_user();
-            helper.user.email=helper.email;
-            helper.user.password=helper.password;
-            biz9.update_item(db,G_DT_USER,helper.user,function(result) {
-                helper.user=result;
-                call();
-            });
-        },
-        function(call){
-            biz9.update_bucket(G_APP_ID,function(result) {
-                helper.bucket=result;
-                call();
-            });
-        },
     ],
         function(err, results){
             res.send({helper:helper});
@@ -91,29 +61,7 @@ router.post('/get_user', function(req, res, next) {
             res.end();
         });
 });
-router.post('/update_stage', function(req, res, next) {
-    var helper = biz9.get_helper(req);
-    async.series([
-        function(call){
-            biz9.get_connect_db(helper.app_title_id,function(_db){
-                db=_db;
-                call();
-            });
-        },
-        function(call){
-            biz9.populate_stage_app_data(db,function(_item_map_list,_item_sub_list) {
-                helper.item_map_list=_item_map_list;
-                helper.item_sub_list=_item_sub_list;
-                call();
-            });
-        },
-    ],
-        function(err, results){
-            res.send({helper:helper});
-            res.end();
-        });
-});
-router.post('/server_send_mail', function(req, res, next) {
+router.post('/send_mail', function(req, res, next) {
     var helper = biz9.get_helper(req);
     async.series([
         function(call){
@@ -138,24 +86,14 @@ router.post('/server_send_mail', function(req, res, next) {
             res.end();
         });
 });
-router.get('/server_go', function(req, res, next) {
+router.get('/read_file', function(req, res, next) {
     var helper = biz9.get_helper(req);
-    test_img = '/images/puppy_up.png';
+    test_img = '/images/no_image.png';
     async.series([
         function(call){
             biz9.get_connect_db(helper.app_title_id,function(_db){
                 db=_db;
                 call();
-            });
-        },
-        function(call){
-            biz9.test_mongo_connection(db,function(result) {
-                helper.mongo_test=result;
-                if(helper.mongo_test=='test_connect_success'){
-                    call();
-                }else{
-                    console.log('server_fail_mongo_db_connect');
-                }
             });
         },
     ],
@@ -172,9 +110,10 @@ router.get('/server_go', function(req, res, next) {
             });
         });
 });
-
-router.get('/run', function(req, res, next) {
+router.get('/report', function(req, res, next) {
     var helper = biz9.get_helper(req);
+    helper.item = biz9.get_new_item(G_DT_BLANK,0);
+    biz9.o('HELPER',helper);
     async.series([
         function(call){
             biz9.get_connect_db(helper.app_title_id,function(_db){
@@ -183,31 +122,20 @@ router.get('/run', function(req, res, next) {
             });
         },
         function(call){
-            helper.page_key='home_page';
-            //options
-            //options.filter_key='val';
-            //options.filter_match='val';
-            //options.page_count='val';
-            //
-
-            var options={};
-            biz9.get_page_key(db,helper.page_key,options,function(result) {
-                item_map = result;
-                utilityz.o('PAGE_KEY',item_map);
-                utilityz.o('PAGE_KEa_NOTE',item_map.sub_list); //utilityz.o('PAGE_KEY_1',item_map.team_list);
-                utilityz.o('PAGE_KEa_NOTE',item_map.sub_list.length); //utilityz.o('PAGE_KEY_1',item_map.team_list);
-                //utilityz.o('PAGE_KEa_COOL',item_map.sub_list[0].sub_list[0].photo_list.length); //utilityz.o('PAGE_KEY_1',item_map.team_list);
-                //utilityz.o('PAGE_KEY_2',item_map.team_list.user1);
+            helper.item.field_1=biz9.get_id();
+            helper.item.field_2=biz9.get_id();
+            helper.item.field_3=biz9.get_id();
+            biz9.update_item(db,G_DT_BLANK,helper.item,function(result) {
+                helper.item=result;
+                biz9.o('DB_FIELD_BLANK_SET',helper.item);
+                call();
             });
         },
         function(call){
-            item_map_title_url='service_page';
-            page_sub_key='service_1';
-            biz9.get_page_sub_key(db,item_map_title_url,page_sub_key,function(result) {
-                utilityz.o('BBB',result.photo_list.length);
-                //utilityz.o('USER1',result);
-                //utilityz.o('USER_NOTE',result.user1.note);
-                //call();
+            biz9.get_item(db,G_DT_BLANK,helper.item.tbl_id,function(result) {
+                helper.item=result;
+                biz9.o('DB_FIELD_BLANK_GET',helper.item);
+                call();
             });
         },
     ],
@@ -216,5 +144,22 @@ router.get('/run', function(req, res, next) {
             res.end();
         });
 });
+router.get('/uptime', function(req, res, next) {
+    var helper = biz9.get_helper(req);
+    helper.item = biz9.get_new_item(G_DT_BLANK,0);
+    async.series([
+        function(call){
+            biz9.get_connect_db(helper.app_title_id,function(_db){
+                db=_db;
+                call();
+            });
+        },
+    ],
+        function(err, results){
+            res.send({helper:helper});
+            res.end();
+        });
+});
+
 module.exports = router;
 
